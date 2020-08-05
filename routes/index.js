@@ -14,30 +14,42 @@ if (!FILEROOT) {
 }
 const myFileContainer = new FileContainer(FILEROOT);
 
+
+
 // Define routes
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
+/* GET home page: / */
+router.get('/', (req, res) => {
   res.render('index', { fileroot: FILEROOT, files: myFileContainer.getFiles() });
 });
 
 /* File upload: /upload */
-router.post('/upload', fileUploadMiddleware, function(req, res) {
+router.post('/upload', fileUploadMiddleware, (req, res) => {
   if (!req.files || Object.keys(req.files).length === 0) {
     return res.status(400).send('No files were uploaded.');
   }
 
-  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
   let myNewFile = req.files.newfile;
 
-  // Use the mv() method to place the file somewhere on your server
   myNewFile.mv(`${FILEROOT}/${req.files.newfile.name}`, function(err) {
     if (err) {
       return res.status(500).send(err);
     }
-    myFileContainer.readDirectorySync(); // @TODO: Create an async function and send response afterwards
-    res.render('fileuploaded', { myNewFile: myNewFile });
+    myFileContainer.readDirectory().then((files) => {
+      res.render('index', { myNewFile: myNewFile,fileroot: FILEROOT, files: files });
+    }).catch((err) => {
+      return res.status(500).send(err);
+    })
   });
 });
+
+/* Delete file: /delete */
+router.get('/delete/:filename', (req, res) => {
+  myFileContainer.deleteFile(req.params.filename).then(() => {
+    res.redirect('/');
+  }).catch((err) => {
+    res.status(500).send(err);
+  });
+})
 
 module.exports = router;

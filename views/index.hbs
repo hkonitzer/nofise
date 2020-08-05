@@ -1,3 +1,7 @@
+{{#if myNewFile}}
+<h1>Status</h1>
+<p>File <a href="/{{myNewFile.name}}">{{myNewFile.name}}</a> uploaded with {{myNewFile.size}} bytes</p>
+{{/if}}
 <h1>Upload file</h1>
 <form ref="uploadForm"
       id="uploadForm"
@@ -12,6 +16,6 @@
 
 <ul>
 {{#each files}}
-    <li><a href="/{{@key}}">{{@key}}</a></li>
+    <li><a href="/{{@key}}">{{@key}}</a>&thinsp;&mdash;&thinsp;<a href="/delete/{{@key}}" class="rc">DELETE</a></li>
 {{/each}}
 </ul>

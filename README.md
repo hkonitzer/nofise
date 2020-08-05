@@ -12,7 +12,7 @@ WARNING: No authentication at all!
 
 ## Options
 
-All options must be provided via enviroment variables.
+All options must be provided via environment variables.
 
 FILEROOT=./fileroot
 
