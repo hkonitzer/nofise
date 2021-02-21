@@ -1,6 +1,6 @@
 {{#if myNewFile}}
 <h1>Status</h1>
-<p>File <a href="/{{myNewFile.name}}">{{myNewFile.name}}</a> uploaded with {{myNewFile.size}} bytes</p>
+<p>Datei <a href="/{{myNewFile.name}}">{{myNewFile.name}}</a> wurde erfolgreich hochgeladen mit einer Dateigröße von {{myNewFile.size}} Bytes.</p>
 {{/if}}
 <h1>Upload file</h1>
 <form ref="uploadForm"
@@ -9,13 +9,13 @@
       method="post"
       encType="multipart/form-data">
     <input type="file" name="newfile" />
-    <input type='submit' value='Upload!' />
+    <input type='submit' value='Hochladen!' />
 </form>
 <hr>
-<h1>Files in {{fileroot}}</h1>
+<h1>Dateien in {{fileroot}}</h1>
 
 <ul>
 {{#each files}}
-    <li><a href="/{{@key}}">{{@key}}</a>&thinsp;&mdash;&thinsp;<a href="/delete/{{@key}}" class="rc">DELETE</a></li>
+    <li><a href="/{{@key}}">{{@key}}</a>&thinsp;&mdash;&thinsp;<a href="/delete/{{@key}}" class="rc">LÖSCHEN</a></li>
 {{/each}}
 </ul>
