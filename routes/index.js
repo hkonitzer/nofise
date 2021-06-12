@@ -15,26 +15,16 @@ if (!FILEROOT) {
 const myFileContainer = new FileContainer(FILEROOT);
 
 const URLPATH = process.env.URLPATH;
-if (!URLPATH) {
-  throw new Error('Path is not defined, define URLPATH environment property')
-}
-if (!URLPATH.startsWith('/')) {
-  throw new Error('Path has to be a / at the beginning, define URLPATH environment property')
-}
-
-if (!URLPATH.endsWith('/')) {
-  throw new Error('Path has to be ended with a /')
-}
 
 // Define routes
 
 /* GET home page: / */
-router.get(URLPATH, (req, res) => {
+router.get('/', (req, res) => {
   res.render('index', { urlpath: URLPATH, fileroot: FILEROOT, files: myFileContainer.getFiles() });
 });
 
 /* File upload: /upload */
-router.post(`${URLPATH}upload`, fileUploadMiddleware, (req, res) => {
+router.post(`/upload`, fileUploadMiddleware, (req, res) => {
   if (!req.files || Object.keys(req.files).length === 0) {
     return res.status(400).send('No files were uploaded.');
   }
@@ -54,7 +44,7 @@ router.post(`${URLPATH}upload`, fileUploadMiddleware, (req, res) => {
 });
 
 /* Delete file: /delete */
-router.get(`${URLPATH}delete/:filename`, (req, res) => {
+router.get(`/delete/:filename`, (req, res) => {
   myFileContainer.deleteFile(req.params.filename).then(() => {
     res.redirect(URLPATH);
   }).catch((err) => {

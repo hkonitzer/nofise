@@ -18,7 +18,19 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
+const URLPATH = process.env.URLPATH;
+if (!URLPATH) {
+  throw new Error('Path is not defined, define URLPATH environment property')
+}
+if (!URLPATH.startsWith('/')) {
+  throw new Error('Path has to be a / at the beginning, define URLPATH environment property')
+}
+
+if (!URLPATH.endsWith('/')) {
+  throw new Error('Path has to be ended with a /')
+}
+
+app.use(URLPATH, indexRouter);
 
 
 // serve our static files via express. WARNING: Works in development environment only. Use proxies like NGINX in production!
@@ -34,7 +46,7 @@ app.use(function(req, res, next) {
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function(err, req, res) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
