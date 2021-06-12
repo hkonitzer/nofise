@@ -12,11 +12,14 @@ const FILEROOT = process.env.FILEROOT;
 if (!FILEROOT) {
   throw new Error('FILEROOT is not defined, define FILEROOT environment property')
 }
-const myFileContainer = new FileContainer(FILEROOT);
-
 const URLPATH = process.env.URLPATH;
 
 const FILEPATH = process.env.FILEPATH;
+if (!FILEPATH) {
+  throw new Error('FILEPATH is not defined, define FILEPATH environment property')
+}
+const myFileContainer = new FileContainer(FILEROOT, FILEPATH);
+
 // Define routes
 
 /* GET home page: / */
