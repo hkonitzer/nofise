@@ -1,7 +1,7 @@
 {
   "name": "nofise",
   "description": "Simple Express based HTTP Server for serve static files",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "private": true,
   "license": "MIT",
   "author": "Hendrik Schellenberger <hkonitzer@googlemail.com>",
