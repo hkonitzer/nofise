@@ -50,7 +50,7 @@ router.post(`/upload`, fileUploadMiddleware, (req, res) => {
 /* Delete file: /delete */
 router.get(`/delete/:filename`, (req, res) => {
   myFileContainer.deleteFile(req.params.filename).then(() => {
-    res.redirect(URLPATH);
+    res.redirect('/');
   }).catch((err) => {
     res.status(500).send(err);
   });
