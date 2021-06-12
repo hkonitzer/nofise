@@ -16,11 +16,12 @@ const myFileContainer = new FileContainer(FILEROOT);
 
 const URLPATH = process.env.URLPATH;
 
+const FILEPATH = process.env.FILEPATH;
 // Define routes
 
 /* GET home page: / */
 router.get('/', (req, res) => {
-  res.render('index', { urlpath: URLPATH, fileroot: FILEROOT, files: myFileContainer.getFiles() });
+  res.render('index', { urlpath: URLPATH, filepath: FILEPATH, fileroot: FILEROOT, files: myFileContainer.getFiles() });
 });
 
 /* File upload: /upload */
@@ -36,7 +37,7 @@ router.post(`/upload`, fileUploadMiddleware, (req, res) => {
       return res.status(500).send(err);
     }
     myFileContainer.readDirectory().then((files) => {
-      res.render('index', { myNewFile: myNewFile, urlpath: URLPATH, fileroot: FILEROOT, files: files });
+      res.render('index', { myNewFile: myNewFile, urlpath: URLPATH, filepath: FILEPATH, fileroot: FILEROOT, files: files });
     }).catch((err) => {
       return res.status(500).send(err);
     })

@@ -14,6 +14,10 @@ WARNING: No authentication at all! Do not use this on the open internet!
 
 All options must be provided via environment variables.
 
+FILEPATH=/files/
+
+Serving files from FILEROOT (see below) with this path.
+ 
 URLPATH=/
 
 The path under nofise serves files, usually a "/"
