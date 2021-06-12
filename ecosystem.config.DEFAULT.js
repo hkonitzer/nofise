@@ -6,10 +6,12 @@ module.exports = {
     script: 'bin/www',
     env: {
       NODE_ENV: "development",
-      FILEROOT: "fileroot"
+      FILEROOT: "fileroot",
+      URLPATH: "/"
     },
     env_production: {
       NODE_ENV: "production",
+      URLPATH: "/",
       PORT: 3503
     }
   }]

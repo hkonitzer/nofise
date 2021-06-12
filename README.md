@@ -8,11 +8,15 @@ in development enviroments.
 Basically this is a simple combination of [Express](https://expressjs.com/) 
 with [Express-Fileupload](https://www.npmjs.com/package/express-fileupload). 
 
-WARNING: No authentication at all!
+WARNING: No authentication at all! Do not use this on the open internet!
 
 ## Options
 
 All options must be provided via environment variables.
+
+URLPATH=/
+
+The path under nofise serves files, usually a "/"
 
 FILEROOT=./fileroot
 

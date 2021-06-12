@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const debug = require('debug')('nofise:server');
+//const debug = require('debug')('nofise:server');
 
 // file upload
 const fileUploadMiddleware = require('express-fileupload')(
@@ -14,17 +14,24 @@ if (!FILEROOT) {
 }
 const myFileContainer = new FileContainer(FILEROOT);
 
+const URLPATH = process.env.URLPATH;
+if (!URLPATH) {
+  throw new Error('Path is not defined, define URLPATH environment property')
+}
+if (!URLPATH.startsWith('/')) {
+  throw new Error('Path has to be a / at the beginning, define URLPATH environment property')
+}
 
 
 // Define routes
 
 /* GET home page: / */
-router.get('/', (req, res) => {
+router.get(URLPATH, (req, res) => {
   res.render('index', { fileroot: FILEROOT, files: myFileContainer.getFiles() });
 });
 
 /* File upload: /upload */
-router.post('/upload', fileUploadMiddleware, (req, res) => {
+router.post(`${URLPATH}/upload`, fileUploadMiddleware, (req, res) => {
   if (!req.files || Object.keys(req.files).length === 0) {
     return res.status(400).send('No files were uploaded.');
   }
@@ -44,9 +51,9 @@ router.post('/upload', fileUploadMiddleware, (req, res) => {
 });
 
 /* Delete file: /delete */
-router.get('/delete/:filename', (req, res) => {
+router.get(`${URLPATH}/delete/:filename`, (req, res) => {
   myFileContainer.deleteFile(req.params.filename).then(() => {
-    res.redirect('/');
+    res.redirect(URLPATH);
   }).catch((err) => {
     res.status(500).send(err);
   });
