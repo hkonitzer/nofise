@@ -1,11 +1,11 @@
 {{#if myNewFile}}
 <h1>Status</h1>
-<p>Datei <a href="/{{myNewFile.name}}">{{myNewFile.name}}</a> wurde erfolgreich hochgeladen mit einer Dateigröße von {{myNewFile.size}} Bytes.</p>
+<p>Datei <a href="{{filepath}}/{{myNewFile.name}}">{{myNewFile.name}}</a> wurde erfolgreich hochgeladen mit einer Dateigröße von {{myNewFile.size}} Bytes.</p>
 {{/if}}
 <h1>Datei hochladen</h1>
-<form 
+<form
       id="uploadForm"
-      action="{{urlpath}}upload"
+      action="./upload"
       method="post"
       encType="multipart/form-data">
     <input type="file" name="newfile" />
@@ -16,6 +16,6 @@
 
 <ul>
 {{#each files}}
-    <li><a href="/{{@key}}">{{@key}}</a>&thinsp;&mdash;&thinsp;<a href="{{urlpath}}delete/{{@key}}" class="rc">LÖSCHEN</a></li>
+    <li><a href="{{filepath}}{{@key}}">{{@key}}</a>&thinsp;&mdash;&thinsp;<a href="./delete/{{@key}}" class="rc">LÖSCHEN</a></li>
 {{/each}}
 </ul>

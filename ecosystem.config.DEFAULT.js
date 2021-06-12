@@ -7,10 +7,12 @@ module.exports = {
     env: {
       NODE_ENV: "development",
       FILEROOT: "fileroot",
+      FILEPATH: "/files/",
       URLPATH: "/"
     },
     env_production: {
       NODE_ENV: "production",
+      FILEPATH: "/files/",
       URLPATH: "/",
       PORT: 3503
     }
